@@ -1,11 +1,11 @@
 package mattingRitual;
 
-public class couple {
+public class Couple {
 
     private int leftMember;
     private int rightMember;
 
-    public couple(int leftMember, int rightMember) {
+    public Couple(int leftMember, int rightMember) {
         this.leftMember = leftMember;
         this.rightMember = rightMember;
     }
