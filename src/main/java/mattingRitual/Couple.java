@@ -23,4 +23,12 @@ public class Couple {
     public int getRightMember() {
         return rightMember;
     }
+
+    @Override
+    public String toString() {
+        return "couple{" +
+                "leftMember=" + leftMember +
+                ", rightMember=" + rightMember +
+                '}';
+    }
 }
