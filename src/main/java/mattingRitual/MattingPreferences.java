@@ -1,6 +1,7 @@
 package mattingRitual;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MattingPreferences {
@@ -31,5 +32,37 @@ public class MattingPreferences {
                 {new Couple(1,2), new Couple(2,1), new Couple(3,3)},
                 {new Couple(2,1), new Couple(1,2), new Couple(3,1)},
                 {new Couple(1,3), new Couple(2,3), new Couple(3,2)}};
+        preferences = preferencesStock.clone();
+    }
+
+    public List<String> getLines() {
+        return lines;
+    }
+
+    public List<String> getColumns() {
+        return columns;
+    }
+
+    public Couple[][] getPreferences() {
+        return preferences;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder buildPreferences = new StringBuilder();
+
+        for (String c: columns) {
+            buildPreferences.append("                  " + c + "              ");
+        }
+        buildPreferences.append("\n");
+
+        for (int i = 0; i < lines.size(); i++){
+            buildPreferences.append(lines.get(i) + "  ");
+            for (int j = 0; j < columns.size(); j++){
+                buildPreferences.append(preferences[i][j] + " ");
+            }
+            buildPreferences.append("\n");
+        }
+        return buildPreferences.toString();
     }
 }

@@ -3,6 +3,7 @@ package mattingRitual;
 public class app {
 
     public static void main(String[] args) {
-        System.out.println("Hello World");
+        MattingPreferences mt = new MattingPreferences();
+        System.out.println(mt);
     }
 }
