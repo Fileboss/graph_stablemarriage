@@ -33,23 +33,26 @@ public class stableMarriageApplication {
         int cpt = 0;
 
         while (!studentNotAssigned.isEmpty()) {
-
-
-
-
-
         }
-
-
-
-
     }
 
-    private static List<Integer> valueAsIndice(List<Integer> inputList) {
+    public static List<Integer> valueAsIndice(List<Integer> inputList) {
         List<Integer> retour = new LinkedList<>();
         for (int i = 0; i < inputList.size(); i++) {
             int val = i+1;
             retour.add(inputList.lastIndexOf(val));
+        }
+        return retour;
+    }
+
+    public static List<Integer> valueAsIndice2(List<Integer> inputList){
+        int[] tabTemp = new int[inputList.size()];
+        for (int i = 0; i < inputList.size(); i++) {
+            tabTemp[inputList.get(i)-1] = i;
+        }
+        List<Integer> retour = new LinkedList<>();
+        for (Integer I: tabTemp) {
+            retour.add(I);
         }
         return retour;
     }
