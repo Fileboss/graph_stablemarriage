@@ -1,27 +1,28 @@
 package mattingRitual;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
 public abstract class Entity {
-    private String name;
-    private List<String> preferenceList;
-    private int capacity;
-    private List<String> waitingList;
+    protected String name;
+    protected List<Entity> preferenceList;
+    protected int capacity;
+    protected List<Entity> waitingList;
 
-    public Entity(String name, List<String> preferenceList, int capacity) {
+    public Entity(String name, int capacity) {
         this.name = name;
-        this.preferenceList = preferenceList;
+        this.preferenceList = new LinkedList<>();
         this.capacity = capacity;
-        this.waitingList = new ArrayList<>();
+        this.waitingList = new LinkedList<>();
     }
 
     public String getName() {
         return name;
     }
 
-    public List<String> getPreferenceList() {
+    public List<Entity> getPreferenceList() {
         return preferenceList;
     }
 
@@ -29,8 +30,16 @@ public abstract class Entity {
         return capacity;
     }
 
-    public List<String> getWaitingList() {
+    public List<Entity> getWaitingList() {
         return waitingList;
+    }
+
+    public void addToPreferenceList(Entity e) {
+        this.preferenceList.add(e);
+    }
+
+    public void addToWaitingList(Entity e) {
+        this.waitingList.add(e);
     }
 
     @Override
