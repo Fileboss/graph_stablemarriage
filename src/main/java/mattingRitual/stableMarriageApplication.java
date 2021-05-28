@@ -33,10 +33,19 @@ public class stableMarriageApplication {
         int cpt = 0;
 
         while (!studentNotAssigned.isEmpty()) {
+
+
+
+
+
         }
+
+
+
+
     }
 
-    public static List<Integer> valueAsIndice(List<Integer> inputList) {
+    private static List<Integer> valueAsIndice(List<Integer> inputList) {
         List<Integer> retour = new LinkedList<>();
         for (int i = 0; i < inputList.size(); i++) {
             int val = i+1;
