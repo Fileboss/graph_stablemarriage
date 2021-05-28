@@ -65,4 +65,22 @@ public class MattingPreferences {
         }
         return buildPreferences.toString();
     }
+
+    private List<Integer> getLine(int indice) {
+        List<Integer> retour = new ArrayList<>();
+        for (int j = 0; j < preferences[0].length; j++) {
+            retour.add(preferences[indice][j].getLeftMember());
+        }
+        return retour;
+    }
+
+    private List<Integer> getColumn(int indice) {
+        List<Integer> retour = new ArrayList<>();
+        for (int i = 0; i < preferences.length; i++) {
+            retour.add(preferences[i][indice].getRightMember());
+        }
+        return retour;
+
+    }
+
 }
