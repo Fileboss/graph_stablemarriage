@@ -11,8 +11,8 @@ public class School extends  Entity{
 
     @Override
     public String toString() {
-        return "School{" +
-                "name='" + name + '\'' +
-                '}';
+        return "Sch[" +
+                name +
+                ']';
     }
 }

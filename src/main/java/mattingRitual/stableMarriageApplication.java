@@ -27,6 +27,7 @@ public class stableMarriageApplication {
         //Get the data
         // first not from a file
         MattingPreferences mp = new MattingPreferences(FILE);
+        System.out.println(mp);
 
         //create all the students
         Student[] students = new Student[mp.getLines().size()];
@@ -62,32 +63,47 @@ public class stableMarriageApplication {
         List<Entity> matteds;
 
         if (studentsStart) {
-            matters =  Arrays.asList(students);
-            matteds = Arrays.asList(schools);
+            matters =  new LinkedList<>(Arrays.asList(students));
+            matteds = new LinkedList<>(Arrays.asList(schools));
             notAssignedMatters =matters;
         } else {
-            matters =  Arrays.asList(schools);
-            matteds = Arrays.asList(students);
+            matters = new LinkedList<>(Arrays.asList(schools));
+            matteds = new LinkedList<>(Arrays.asList(students));
             notAssignedMatters =matters;
         }
 
+
         //List<Student> notAssignedStudents = Arrays.asList(students);
+        int cptTour = 0;
         //Algo
         while ( ! notAssignedMatters.isEmpty()) {
 
+            // Gestion des élèves non assignés ?
+
+            List<Entity> toRemove = new LinkedList<>();
             for (Entity matter : notAssignedMatters) {
                 matter.popPrefered().addToWaitingList(matter);
+                matter.decreaseCapacity();
+                if (matter.getCapacity() == 0) {
+                    toRemove.add(matter);
+                }
             }
 
-            notAssignedMatters = new LinkedList<>();
+            notAssignedMatters.removeAll(toRemove);
+            //for(Entity e : toRemove) notAssignedMatters.remove(e);
 
             for (Entity matted : matteds) {
                 while(matted.getWaitingList().size() > matted.getCapacity()) {
-                    notAssignedMatters.add(matted.popWorseFromWaitingList());
+                    Entity matter = matted.popWorseFromWaitingList();
+                    matter.increaseCapacity();
+                    if (!notAssignedMatters.contains(matter))
+                        notAssignedMatters.add(matter);
                 }
             }
+            cptTour++;
         }
 
+        System.out.println("<><><><><><><><><><><><><><><><><>\n\nNB TOURS : "+cptTour+"\n<><><><><><><><><><><><><><><><><>");
         for (Entity matted : matteds) {
             System.out.println(matted.toStringWaitingList());
         }

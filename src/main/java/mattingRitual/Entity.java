@@ -63,6 +63,14 @@ public abstract class Entity {
 
     }
 
+    public void decreaseCapacity() {
+        capacity--;
+    }
+
+    public void increaseCapacity() {
+        capacity++;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
