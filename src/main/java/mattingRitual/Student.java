@@ -13,8 +13,7 @@ public class Student extends Entity {
 
     @Override
     public String toString() {
-        return "Student{" +
-                "name='" + name + '\'' +
-                '}';
+        return "Stu[" + name  +
+                ']';
     }
 }

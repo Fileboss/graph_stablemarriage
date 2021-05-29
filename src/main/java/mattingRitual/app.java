@@ -24,9 +24,9 @@ public class app {
         System.out.println((stopTime - startTime) / 100000);
 
         System.out.println(result2);
-        System.out.println(result1);*/
+        System.out.println(result1);
 
         MattingPreferences mp = new MattingPreferences("example1.csv");
-        System.out.println(mp.toString());
+        System.out.println(mp.toString());*/
     }
 }

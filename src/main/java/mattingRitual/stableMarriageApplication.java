@@ -10,6 +10,7 @@ public class stableMarriageApplication {
     public static void main(String[] args) {
 
 
+
         final String FILE = args[0];
         final String STARTER = args[1];
         final int SCHOOLCAPACITY = Integer.parseInt(args[2]);
@@ -25,7 +26,7 @@ public class stableMarriageApplication {
 
         //Get the data
         // first not from a file
-        MattingPreferences mp = new MattingPreferences();
+        MattingPreferences mp = new MattingPreferences(FILE);
 
         //create all the students
         Student[] students = new Student[mp.getLines().size()];
