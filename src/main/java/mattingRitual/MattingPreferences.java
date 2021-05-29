@@ -14,9 +14,9 @@ import java.util.List;
 
 public class MattingPreferences {
 
-    private /*final*/ List<String> lines = new ArrayList<>();
+    private /*final*/ List<String> lines;
 
-    private /*final*/ List<String> columns = new ArrayList<>();
+    private /*final*/ List<String> columns;
 
     private /*final*/ Couple[][] preferences ;
 
