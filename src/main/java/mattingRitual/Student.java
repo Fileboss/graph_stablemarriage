@@ -9,11 +9,11 @@ public class Student extends Entity {
         super(name, 1);
     }
 
-    public Entity popPreferedSchool() {
-        return this.preferenceList.remove(0);
+
+
+    @Override
+    public String toString() {
+        return "Stu[" + name  +
+                ']';
     }
-
-
-
-
 }

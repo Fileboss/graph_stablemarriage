@@ -42,6 +42,35 @@ public abstract class Entity {
         this.waitingList.add(e);
     }
 
+    public Entity popWorseFromWaitingList() {
+        Entity worse = waitingList.get(0);
+        for (Entity e : waitingList) {
+            if (preferenceList.lastIndexOf(e) > preferenceList.lastIndexOf(worse)) {
+                worse = e;
+            }
+        }
+        waitingList.remove(worse);
+        return worse;
+
+    }
+
+    public Entity popPrefered() {
+        return this.preferenceList.remove(0);
+    }
+
+    public String toStringWaitingList() {
+        return(name + " | " + waitingList);
+
+    }
+
+    public void decreaseCapacity() {
+        capacity--;
+    }
+
+    public void increaseCapacity() {
+        capacity++;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -54,4 +83,5 @@ public abstract class Entity {
     public int hashCode() {
         return Objects.hash(name);
     }
+
 }

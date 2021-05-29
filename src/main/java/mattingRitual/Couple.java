@@ -10,11 +10,17 @@ public class Couple {
         this.rightMember = rightMember;
     }
 
-    public void flip() {
+    public Couple(String values) {
+        String[] splitValues = values.split(",");
+        leftMember = Integer.parseInt(splitValues[0]);
+        rightMember = Integer.parseInt(splitValues[1]);
+    }
+
+    /*public void flip() {
         int stock = leftMember;
         leftMember = rightMember;
         rightMember = stock;
-    }
+    }*/
 
     public int getLeftMember() {
         return leftMember;
@@ -26,9 +32,6 @@ public class Couple {
 
     @Override
     public String toString() {
-        return "couple{" +
-                "leftMember=" + leftMember +
-                ", rightMember=" + rightMember +
-                '}';
+        return "[" + leftMember +"," +rightMember + "]";
     }
 }
