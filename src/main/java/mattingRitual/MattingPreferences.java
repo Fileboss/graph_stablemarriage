@@ -14,10 +14,10 @@ import java.util.List;
 
 public class MattingPreferences {
 
-    private /*final*/ List<String> lines;
+    private final List<String> linesLabels;
     private int linesCapacity;
 
-    private /*final*/ List<String> columns;
+    private final List<String> columnsLabels;
     private int columnsCapacity;
 
     private /*final*/ Couple[][] preferences ;
@@ -28,14 +28,14 @@ public class MattingPreferences {
         linesStock.add("A");
         linesStock.add("B");
         linesStock.add("C");
-        lines = new ArrayList<>(linesStock);
+        linesLabels = new ArrayList<>(linesStock);
 
         // Column
         List<String> columnsStock = new ArrayList<>();
         columnsStock.add("Alpha");
         columnsStock.add("Beta");
         columnsStock.add("Gamma");
-        columns = new ArrayList<>(columnsStock);
+        columnsLabels = new ArrayList<>(columnsStock);
 
         // Preferences
         Couple[][] preferencesStock = new Couple[][]{
@@ -61,12 +61,12 @@ public class MattingPreferences {
         Couple capacities = new Couple(firstLine.remove(0));
         linesCapacity = capacities.getLeftMember();
         columnsCapacity = capacities.getRightMember();
-        this.columns = firstLine;
-        this.lines = new ArrayList<>();
-        preferences = new Couple[result.size()-1][columns.size()];
+        this.columnsLabels = firstLine;
+        this.linesLabels = new ArrayList<>();
+        preferences = new Couple[result.size()-1][columnsLabels.size()];
 
         for (int i = 1; i < result.size(); i++) {
-            lines.add(result.get(i)[0]);
+            linesLabels.add(result.get(i)[0]);
             for (int j = 1; j < result.get(i).length; j++) {
                 preferences[i-1][j-1] = new Couple(result.get(i)[j]);
             }
@@ -76,12 +76,12 @@ public class MattingPreferences {
 
     }
 
-    public List<String> getLines() {
-        return lines;
+    public List<String> getLinesLabels() {
+        return linesLabels;
     }
 
-    public List<String> getColumns() {
-        return columns;
+    public List<String> getColumnsLabels() {
+        return columnsLabels;
     }
 
     public int getLinesCapacity() {
@@ -101,14 +101,14 @@ public class MattingPreferences {
         StringBuilder buildPreferences = new StringBuilder();
 
         buildPreferences.append("\t\t\t\t\t");
-        for (String c: columns) {
+        for (String c: columnsLabels) {
             buildPreferences.append("" + c + "\t\t\t");
         }
         buildPreferences.append("\n");
 
-        for (int i = 0; i < lines.size(); i++){
-            buildPreferences.append(lines.get(i) + "\t\t\t\t");
-            for (int j = 0; j < columns.size(); j++){
+        for (int i = 0; i < linesLabels.size(); i++){
+            buildPreferences.append(linesLabels.get(i) + "\t\t\t\t");
+            for (int j = 0; j < columnsLabels.size(); j++){
                 buildPreferences.append(preferences[i][j] + "\t\t\t\t");
             }
             buildPreferences.append("\n");

@@ -1,6 +1,5 @@
 package mattingRitual;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,15 +29,15 @@ public class stableMarriageApplication {
         System.out.println(mp);
 
         //create all the linesEntities
-        Entity[] linesEntities = new Entity[mp.getLines().size()];
+        Entity[] linesEntities = new Entity[mp.getLinesLabels().size()];
         for (int i = 0; i < linesEntities.length; i++) {
-            linesEntities[i] = new Entity(mp.getLines().get(i), mp.getLinesCapacity());
+            linesEntities[i] = new Entity(mp.getLinesLabels().get(i), mp.getLinesCapacity());
         }
 
         // create all columnsEntities
-        Entity[] columnsEntities = new Entity[mp.getColumns().size()];
+        Entity[] columnsEntities = new Entity[mp.getColumnsLabels().size()];
         for (int i = 0; i < columnsEntities.length; i++) {
-            columnsEntities[i] = new Entity(mp.getColumns().get(i), mp.getColumnsCapacity());
+            columnsEntities[i] = new Entity(mp.getColumnsLabels().get(i), mp.getColumnsCapacity());
         }
 
         // Assign student preference list
