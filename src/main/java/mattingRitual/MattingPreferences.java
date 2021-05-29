@@ -15,8 +15,10 @@ import java.util.List;
 public class MattingPreferences {
 
     private /*final*/ List<String> lines;
+    private int linesCapacity;
 
     private /*final*/ List<String> columns;
+    private int columnsCapacity;
 
     private /*final*/ Couple[][] preferences ;
 
@@ -55,7 +57,11 @@ public class MattingPreferences {
             e.printStackTrace();
         }
 
-        this.columns = Arrays.asList(result.get(0));
+        List<String> firstLine = new ArrayList<>(Arrays.asList(result.get(0)));
+        Couple capacities = new Couple(firstLine.remove(0));
+        linesCapacity = capacities.getLeftMember();
+        columnsCapacity = capacities.getRightMember();
+        this.columns = firstLine;
         this.lines = new ArrayList<>();
         preferences = new Couple[result.size()-1][columns.size()];
 
@@ -76,6 +82,14 @@ public class MattingPreferences {
 
     public List<String> getColumns() {
         return columns;
+    }
+
+    public int getLinesCapacity() {
+        return linesCapacity;
+    }
+
+    public int getColumnsCapacity() {
+        return columnsCapacity;
     }
 
     public Couple[][] getPreferences() {

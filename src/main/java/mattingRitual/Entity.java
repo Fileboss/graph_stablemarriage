@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class Entity {
+public class Entity {
     protected String name;
     protected List<Entity> preferenceList;
     protected int capacity;
@@ -84,4 +84,8 @@ public abstract class Entity {
         return Objects.hash(name);
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }

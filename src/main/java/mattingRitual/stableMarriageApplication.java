@@ -13,12 +13,12 @@ public class stableMarriageApplication {
 
         final String FILE = args[0];
         final String STARTER = args[1];
-        final int SCHOOLCAPACITY = Integer.parseInt(args[2]);
-        boolean studentsStart = true;
+        //final int SCHOOLCAPACITY = Integer.parseInt(args[2]);
+        boolean startWithLines = true;
 
         switch (STARTER) {
-            case "students" : studentsStart = true; break;
-            case "schools" : studentsStart = false; break;
+            case "lines" : startWithLines = true; break;
+            case "columns" : startWithLines = false; break;
             default:
                 System.out.println("ERREUR FORMAT ARGUMENTS");
                 System.exit(2);
@@ -29,31 +29,31 @@ public class stableMarriageApplication {
         MattingPreferences mp = new MattingPreferences(FILE);
         System.out.println(mp);
 
-        //create all the students
-        Student[] students = new Student[mp.getLines().size()];
-        for (int i = 0; i < students.length; i++) {
-            students[i] = new Student(mp.getLines().get(i));
+        //create all the linesEntities
+        Entity[] linesEntities = new Entity[mp.getLines().size()];
+        for (int i = 0; i < linesEntities.length; i++) {
+            linesEntities[i] = new Entity(mp.getLines().get(i), mp.getLinesCapacity());
         }
 
-        // create all schools
-        School[] schools = new School[mp.getColumns().size()];
-        for (int i = 0; i < schools.length; i++) {
-            schools[i] = new School(mp.getColumns().get(i), SCHOOLCAPACITY);
+        // create all columnsEntities
+        Entity[] columnsEntities = new Entity[mp.getColumns().size()];
+        for (int i = 0; i < columnsEntities.length; i++) {
+            columnsEntities[i] = new Entity(mp.getColumns().get(i), mp.getColumnsCapacity());
         }
 
         // Assign student preference list
-        for (int i = 0; i < students.length; i++) {
+        for (int i = 0; i < linesEntities.length; i++) {
             List<Integer> preferences = valueAsIndice2(mp.getLine(i));
             for (Integer ind : preferences) {
-                students[i].addToPreferenceList(schools[ind]);
+                linesEntities[i].addToPreferenceList(columnsEntities[ind]);
             }
         }
 
         // Assign School preference list
-        for (int i = 0; i < schools.length; i++) {
+        for (int i = 0; i < columnsEntities.length; i++) {
             List<Integer> preferences = valueAsIndice2(mp.getColumn(i));
             for (Integer ind : preferences) {
-                schools[i].addToPreferenceList(students[ind]);
+                columnsEntities[i].addToPreferenceList(linesEntities[ind]);
             }
         }
 
@@ -62,18 +62,18 @@ public class stableMarriageApplication {
         List<Entity> matters;
         List<Entity> matteds;
 
-        if (studentsStart) {
-            matters =  new LinkedList<>(Arrays.asList(students));
-            matteds = new LinkedList<>(Arrays.asList(schools));
+        if (startWithLines) {
+            matters =  new LinkedList<>(Arrays.asList(linesEntities));
+            matteds = new LinkedList<>(Arrays.asList(columnsEntities));
             notAssignedMatters =matters;
         } else {
-            matters = new LinkedList<>(Arrays.asList(schools));
-            matteds = new LinkedList<>(Arrays.asList(students));
+            matters = new LinkedList<>(Arrays.asList(columnsEntities));
+            matteds = new LinkedList<>(Arrays.asList(linesEntities));
             notAssignedMatters =matters;
         }
 
 
-        //List<Student> notAssignedStudents = Arrays.asList(students);
+        //List<Student> notAssignedStudents = Arrays.asList(linesEntities);
         int cptTour = 0;
         //Algo
         while ( ! notAssignedMatters.isEmpty()) {
