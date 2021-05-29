@@ -10,6 +10,12 @@ public class Couple {
         this.rightMember = rightMember;
     }
 
+    public Couple(String values) {
+        String[] splitValues = values.split(",");
+        leftMember = Integer.parseInt(splitValues[0]);
+        rightMember = Integer.parseInt(splitValues[1]);
+    }
+
     public void flip() {
         int stock = leftMember;
         leftMember = rightMember;

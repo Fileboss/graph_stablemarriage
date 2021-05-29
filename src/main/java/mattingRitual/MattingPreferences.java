@@ -1,16 +1,27 @@
 package mattingRitual;
 
+import com.opencsv.CSVParser;
+import com.opencsv.CSVParserBuilder;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
+import com.opencsv.exceptions.CsvException;
+
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class MattingPreferences {
 
-    private final List<String> lines;
+    private /*final*/ List<String> lines = new ArrayList<>();
 
-    private final List<String> columns;
+    private /*final*/ List<String> columns = new ArrayList<>();
 
-    private final Couple[][] preferences;
+    private /*final*/ Couple[][] preferences = new Couple[][]{
+            {new Couple(2,2), new Couple(1,1), new Couple(3,3)},
+            {new Couple(1,1), new Couple(2,2), new Couple(3,1)},
+            {new Couple(1,3), new Couple(2,3), new Couple(3,2)}};
 
     public MattingPreferences(){
         // Line
@@ -29,10 +40,29 @@ public class MattingPreferences {
 
         // Preferences
         Couple[][] preferencesStock = new Couple[][]{
-                {new Couple(1,2), new Couple(2,1), new Couple(3,3)},
-                {new Couple(2,1), new Couple(1,2), new Couple(3,1)},
+                {new Couple(2,2), new Couple(1,1), new Couple(3,3)},
+                {new Couple(1,1), new Couple(2,2), new Couple(3,1)},
                 {new Couple(1,3), new Couple(2,3), new Couple(3,2)}};
         preferences = preferencesStock.clone();
+    }
+
+    public MattingPreferences(String fileName) {
+        final CSVParser parser = new CSVParserBuilder().withSeparator('\t').withIgnoreQuotations(true).build();
+        List<String[]> result = new ArrayList<>();
+        String path = "src/main/resources/"+fileName;
+        try(CSVReader reader = new CSVReaderBuilder(
+                new FileReader(path))
+            .withCSVParser(parser).build()) {
+            while (reader.iterator().hasNext()) {
+                result.add(reader.readNext());
+            }
+        } catch (IOException | CsvException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(result);
+
+
     }
 
     public List<String> getLines() {
