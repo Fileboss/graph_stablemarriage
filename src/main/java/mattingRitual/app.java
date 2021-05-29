@@ -26,6 +26,7 @@ public class app {
         System.out.println(result2);
         System.out.println(result1);*/
 
-        //MattingPreferences mp = new MattingPreferences("example1.csv");
+        MattingPreferences mp = new MattingPreferences("example1.csv");
+        System.out.println(mp.toString());
     }
 }

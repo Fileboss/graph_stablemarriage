@@ -18,10 +18,7 @@ public class MattingPreferences {
 
     private /*final*/ List<String> columns = new ArrayList<>();
 
-    private /*final*/ Couple[][] preferences = new Couple[][]{
-            {new Couple(2,2), new Couple(1,1), new Couple(3,3)},
-            {new Couple(1,1), new Couple(2,2), new Couple(3,1)},
-            {new Couple(1,3), new Couple(2,3), new Couple(3,2)}};
+    private /*final*/ Couple[][] preferences ;
 
     public MattingPreferences(){
         // Line
@@ -53,14 +50,22 @@ public class MattingPreferences {
         try(CSVReader reader = new CSVReaderBuilder(
                 new FileReader(path))
             .withCSVParser(parser).build()) {
-            while (reader.iterator().hasNext()) {
-                result.add(reader.readNext());
-            }
+            result = reader.readAll();
         } catch (IOException | CsvException e) {
             e.printStackTrace();
         }
 
-        System.out.println(result);
+        this.columns = Arrays.asList(result.get(0));
+        this.lines = new ArrayList<>();
+        preferences = new Couple[result.size()-1][columns.size()];
+
+        for (int i = 1; i < result.size(); i++) {
+            lines.add(result.get(i)[0]);
+            for (int j = 1; j < result.get(i).length; j++) {
+                preferences[i-1][j-1] = new Couple(result.get(i)[j]);
+            }
+
+        }
 
 
     }
@@ -81,15 +86,16 @@ public class MattingPreferences {
     public String toString() {
         StringBuilder buildPreferences = new StringBuilder();
 
+        buildPreferences.append("\t\t\t\t\t");
         for (String c: columns) {
-            buildPreferences.append("                  " + c + "              ");
+            buildPreferences.append("" + c + "\t\t\t");
         }
         buildPreferences.append("\n");
 
         for (int i = 0; i < lines.size(); i++){
-            buildPreferences.append(lines.get(i) + "  ");
+            buildPreferences.append(lines.get(i) + "\t\t\t\t");
             for (int j = 0; j < columns.size(); j++){
-                buildPreferences.append(preferences[i][j] + " ");
+                buildPreferences.append(preferences[i][j] + "\t\t\t\t");
             }
             buildPreferences.append("\n");
         }

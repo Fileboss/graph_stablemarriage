@@ -32,9 +32,6 @@ public class Couple {
 
     @Override
     public String toString() {
-        return "couple{" +
-                "leftMember=" + leftMember +
-                ", rightMember=" + rightMember +
-                '}';
+        return "[" + leftMember +"," +rightMember + "]";
     }
 }
