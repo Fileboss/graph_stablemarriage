@@ -26,6 +26,7 @@ public class stableMarriageApplication {
         //Get the data
         // first not from a file
         MattingPreferences mp = new MattingPreferences(FILE);
+        //mp = new MattingPreferences();
         System.out.println(mp);
 
         //create all the linesEntities
@@ -62,6 +63,7 @@ public class stableMarriageApplication {
         List<Entity> matters;
         List<Entity> matteds;
 
+        // Assign the correct list depending on which Entity starts
         if (startWithLines) {
             matters =  new LinkedList<>(Arrays.asList(linesEntities));
             matteds = new LinkedList<>(Arrays.asList(columnsEntities));
@@ -77,8 +79,7 @@ public class stableMarriageApplication {
         //Algo
         while ( ! notAssignedMatters.isEmpty()) {
 
-            // Gestion des élèves non assignés ?
-
+            // Biding
             List<Entity> toRemove = new LinkedList<>();
             for (Entity matter : notAssignedMatters) {
                 matter.popPrefered().addToWaitingList(matter);
@@ -87,7 +88,6 @@ public class stableMarriageApplication {
                     toRemove.add(matter);
                 }
             }
-
             notAssignedMatters.removeAll(toRemove);
 
             for (Entity matted : matteds) {
@@ -106,6 +106,7 @@ public class stableMarriageApplication {
             cptTour++;
         }
 
+        // Show results
         System.out.println("<><><><><><><><><><><><><><><><><>\n\nNB TOURS : "+cptTour+"\n<><><><><><><><><><><><><><><><><>");
         for (Entity matted : matteds) {
             System.out.println(matted.toStringWaitingList());

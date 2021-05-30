@@ -29,6 +29,7 @@ public class MattingPreferences {
         linesStock.add("B");
         linesStock.add("C");
         linesLabels = new ArrayList<>(linesStock);
+        linesCapacity = 1;
 
         // Column
         List<String> columnsStock = new ArrayList<>();
@@ -36,6 +37,7 @@ public class MattingPreferences {
         columnsStock.add("Beta");
         columnsStock.add("Gamma");
         columnsLabels = new ArrayList<>(columnsStock);
+        columnsCapacity = 1;
 
         // Preferences
         Couple[][] preferencesStock = new Couple[][]{
