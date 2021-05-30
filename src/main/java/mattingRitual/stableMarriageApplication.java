@@ -1,5 +1,6 @@
 package mattingRitual;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,7 +13,6 @@ public class stableMarriageApplication {
 
         final String FILE = args[0];
         final String STARTER = args[1];
-        //final int SCHOOLCAPACITY = Integer.parseInt(args[2]);
         boolean startWithLines = true;
 
         switch (STARTER) {
@@ -42,7 +42,7 @@ public class stableMarriageApplication {
 
         // Assign student preference list
         for (int i = 0; i < linesEntities.length; i++) {
-            List<Integer> preferences = valueAsIndice2(mp.getLine(i));
+            List<Integer> preferences = valueAsIndice(mp.getLine(i));
             for (Integer ind : preferences) {
                 linesEntities[i].addToPreferenceList(columnsEntities[ind]);
             }
@@ -50,7 +50,7 @@ public class stableMarriageApplication {
 
         // Assign School preference list
         for (int i = 0; i < columnsEntities.length; i++) {
-            List<Integer> preferences = valueAsIndice2(mp.getColumn(i));
+            List<Integer> preferences = valueAsIndice(mp.getColumn(i));
             for (Integer ind : preferences) {
                 columnsEntities[i].addToPreferenceList(linesEntities[ind]);
             }
@@ -58,6 +58,7 @@ public class stableMarriageApplication {
 
         // algo
         List<Entity> notAssignedMatters;
+        List<Entity> impossibleToAssignMatters = new ArrayList<>();
         List<Entity> matters;
         List<Entity> matteds;
 
@@ -72,7 +73,6 @@ public class stableMarriageApplication {
         }
 
 
-        //List<Student> notAssignedStudents = Arrays.asList(linesEntities);
         int cptTour = 0;
         //Algo
         while ( ! notAssignedMatters.isEmpty()) {
@@ -89,14 +89,18 @@ public class stableMarriageApplication {
             }
 
             notAssignedMatters.removeAll(toRemove);
-            //for(Entity e : toRemove) notAssignedMatters.remove(e);
 
             for (Entity matted : matteds) {
                 while(matted.getWaitingList().size() > matted.getCapacity()) {
                     Entity matter = matted.popWorseFromWaitingList();
                     matter.increaseCapacity();
                     if (!notAssignedMatters.contains(matter))
-                        notAssignedMatters.add(matter);
+                        if (matter.getPreferenceList().size() != 0) {
+                            notAssignedMatters.add(matter);
+                        } else {
+                            impossibleToAssignMatters.add(matter);
+                        }
+
                 }
             }
             cptTour++;
@@ -106,22 +110,11 @@ public class stableMarriageApplication {
         for (Entity matted : matteds) {
             System.out.println(matted.toStringWaitingList());
         }
-
-
-
+        System.out.println("<><><><><><><><><><><><><><><><><>\nAUCUNE ASSIGNATION : "+impossibleToAssignMatters);
 
     }
 
-    /*private static List<Integer> valueAsIndice(List<Integer> inputList) {
-        List<Integer> retour = new LinkedList<>();
-        for (int i = 0; i < inputList.size(); i++) {
-            int val = i+1;
-            retour.add(inputList.lastIndexOf(val));
-        }
-        return retour;
-    }*/
-
-    public static List<Integer> valueAsIndice2(List<Integer> inputList){
+    public static List<Integer> valueAsIndice(List<Integer> inputList){
         int[] tabTemp = new int[inputList.size()];
         for (int i = 0; i < inputList.size(); i++) {
             tabTemp[inputList.get(i)-1] = i;
