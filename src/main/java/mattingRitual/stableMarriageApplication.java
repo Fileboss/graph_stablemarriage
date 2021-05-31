@@ -8,13 +8,11 @@ import java.util.List;
 public class stableMarriageApplication {
 
     public static void main(String[] args) {
-
-
-
         final String FILE = args[0];
         final String STARTER = args[1];
         boolean startWithLines = true;
 
+        //
         switch (STARTER) {
             case "lines" : startWithLines = true; break;
             case "columns" : startWithLines = false; break;
@@ -82,7 +80,6 @@ public class stableMarriageApplication {
             // Biding
             List<Entity> toRemove = new LinkedList<>();
             for (Entity matter : notAssignedMatters) {
-                System.out.println("list : " +matter.getName() + matter.preferenceList);
                 matter.popPrefered().addToWaitingList(matter);
                 matter.decreaseCapacity();
                 if (matter.getCapacity() == 0 || !matter.isAssignable()) {
@@ -95,13 +92,11 @@ public class stableMarriageApplication {
                 while(matted.getWaitingList().size() > matted.getCapacity()) {
                     Entity matter = matted.popWorseFromWaitingList();
                     matter.increaseCapacity();
+
                     if (!notAssignedMatters.contains(matter))
                         if (matter.isAssignable()) {
                             notAssignedMatters.add(matter);
-                        } else {
-                            impossibleToAssignMatters.add(matter);
                         }
-
                 }
             }
             cptTour++;
