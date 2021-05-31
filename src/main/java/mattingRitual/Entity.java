@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class Entity {
+public class Entity {
     protected String name;
     protected List<Entity> preferenceList;
     protected int capacity;
@@ -71,6 +71,10 @@ public abstract class Entity {
         capacity++;
     }
 
+    public boolean isAssignable() {
+        return this.getPreferenceList().size() != 0;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -84,4 +88,8 @@ public abstract class Entity {
         return Objects.hash(name);
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }
