@@ -8,6 +8,11 @@ import java.util.List;
 public class stableMarriageApplication {
 
     public static void main(String[] args) {
+
+        if (args.length != 2) {
+            System.out.println("ERREUR FORMAT ARGUMENTS");
+            System.exit(2);
+        }
         final String FILE = args[0];
         final String STARTER = args[1];
         boolean startWithLines = true;

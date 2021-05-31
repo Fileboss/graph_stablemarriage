@@ -16,12 +16,6 @@ public class Couple {
         rightMember = Integer.parseInt(splitValues[1]);
     }
 
-    /*public void flip() {
-        int stock = leftMember;
-        leftMember = rightMember;
-        rightMember = stock;
-    }*/
-
     public int getLeftMember() {
         return leftMember;
     }
