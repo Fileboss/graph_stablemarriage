@@ -99,7 +99,7 @@ public class stableMarriageApplication {
         while ( ! notAssignedMatters.isEmpty()) {
             // Biding
 
-            // the list of Entities that reached full capacity
+            // the list of matters that reached full capacity
             // or don't have anymore Entity in their preference list
             List<Entity> toRemove = new LinkedList<>();
 
@@ -112,20 +112,32 @@ public class stableMarriageApplication {
                 //      and .addToWaitingLIst(matter) add the studens to the waiting list of the school
                 matter.popPrefered().addToWaitingList(matter);
 
-                //
+                // The matter can be assigned at most to capacity number of Entities
+                // Therefore we decrease the capacity
                 matter.decreaseCapacity();
+
+                // If a matter is assigned to its max capacity
+                // or doesn't have anymore Entity it can be assigned to
                 if (matter.getCapacity() == 0 || !matter.isAssignable()) {
                     toRemove.add(matter);
                 }
             }
             notAssignedMatters.removeAll(toRemove);
 
+            // After assigning each matter with the matted we need to remove
+            // the least prefered matter from the matted until it does not exceed
+            // the capacity of the matted
             for (Entity matted : matteds) {
                 while(matted.getWaitingList().size() > matted.getCapacity()) {
                     Entity matter = matted.popWorseFromWaitingList();
+
+                    // Because we removed a matter from the waiting list of a matted
+                    // we need to increase the number of time it can still be matted
                     matter.increaseCapacity();
 
+
                     if (!notAssignedMatters.contains(matter))
+                        System.out.println(matter);
                         if (matter.isAssignable()) {
                             notAssignedMatters.add(matter);
                         }
