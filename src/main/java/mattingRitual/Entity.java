@@ -71,6 +71,10 @@ public class Entity {
         capacity++;
     }
 
+    public boolean isAssignable() {
+        return this.getPreferenceList().size() != 0;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

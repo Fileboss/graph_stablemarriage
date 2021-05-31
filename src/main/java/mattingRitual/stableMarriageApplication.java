@@ -95,7 +95,7 @@ public class stableMarriageApplication {
                     Entity matter = matted.popWorseFromWaitingList();
                     matter.increaseCapacity();
                     if (!notAssignedMatters.contains(matter))
-                        if (matter.getPreferenceList().size() != 0) {
+                        if (matter.isAssignable()) {
                             notAssignedMatters.add(matter);
                         } else {
                             impossibleToAssignMatters.add(matter);
