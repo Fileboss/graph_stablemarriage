@@ -135,7 +135,7 @@ public class stableMarriageApplication {
                     // we need to increase the number of time it can still be matted
                     matter.increaseCapacity();
 
-
+                    // matter can still be assigned and is not in the notAssignedMatters list
                     if (!notAssignedMatters.contains(matter)) {
                         if (matter.isAssignable()) {
                             notAssignedMatters.add(matter);
