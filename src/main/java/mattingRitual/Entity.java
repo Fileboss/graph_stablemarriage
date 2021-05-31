@@ -130,6 +130,10 @@ public class Entity {
         capacity++;
     }
 
+    /** Determine if this Entity still has at least an Entity in its preferenceList.
+     * Wich means if it can still be assigned to the waitingList of an Entity in its preferenceList
+     * @return True if PreferenceList is not empty and False otherwise
+     */
     public boolean isAssignable() {
         return !this.preferenceList.isEmpty();
     }
