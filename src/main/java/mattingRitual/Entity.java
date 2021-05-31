@@ -72,7 +72,7 @@ public class Entity {
     }
 
     public boolean isAssignable() {
-        return this.getPreferenceList().size() != 0;
+        return !this.preferenceList.isEmpty();
     }
 
     @Override

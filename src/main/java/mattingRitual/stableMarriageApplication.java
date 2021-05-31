@@ -82,9 +82,10 @@ public class stableMarriageApplication {
             // Biding
             List<Entity> toRemove = new LinkedList<>();
             for (Entity matter : notAssignedMatters) {
+                System.out.println("list : " +matter.getName() + matter.preferenceList);
                 matter.popPrefered().addToWaitingList(matter);
                 matter.decreaseCapacity();
-                if (matter.getCapacity() == 0) {
+                if (matter.getCapacity() == 0 || !matter.isAssignable()) {
                     toRemove.add(matter);
                 }
             }
@@ -111,7 +112,7 @@ public class stableMarriageApplication {
         for (Entity matted : matteds) {
             System.out.println(matted.toStringWaitingList());
         }
-        System.out.println("<><><><><><><><><><><><><><><><><>\nAUCUNE ASSIGNATION : "+impossibleToAssignMatters);
+        //System.out.println("<><><><><><><><><><><><><><><><><>\nASSIGNATION INCOMPLETE : "+impossibleToAssignMatters);
 
     }
 
