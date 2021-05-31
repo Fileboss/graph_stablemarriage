@@ -136,11 +136,11 @@ public class stableMarriageApplication {
                     matter.increaseCapacity();
 
 
-                    if (!notAssignedMatters.contains(matter))
-                        System.out.println(matter);
+                    if (!notAssignedMatters.contains(matter)) {
                         if (matter.isAssignable()) {
                             notAssignedMatters.add(matter);
                         }
+                    }
                 }
             }
             cptTour++;
