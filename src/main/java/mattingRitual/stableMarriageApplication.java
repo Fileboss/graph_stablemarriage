@@ -48,7 +48,7 @@ public class stableMarriageApplication {
         // Assign the Entities from the lines
         // (in our case the Students) their respective preference list
         for (int i = 0; i < linesEntities.length; i++) {
-            List<Integer> preferences = valueAsIndice(mp.getLine(i));
+            List<Integer> preferences = valueAsIndex(mp.getLine(i));
             for (Integer ind : preferences) {
                 linesEntities[i].addToPreferenceList(columnsEntities[ind]);
             }
@@ -57,7 +57,7 @@ public class stableMarriageApplication {
         // Assign the Entities from the columns
         // (in our case the Schools) their respective preference list
         for (int i = 0; i < columnsEntities.length; i++) {
-            List<Integer> preferences = valueAsIndice(mp.getColumn(i));
+            List<Integer> preferences = valueAsIndex(mp.getColumn(i));
             for (Integer ind : preferences) {
                 columnsEntities[i].addToPreferenceList(linesEntities[ind]);
             }
@@ -155,11 +155,17 @@ public class stableMarriageApplication {
 
     }
 
-    public static List<Integer> valueAsIndice(List<Integer> inputList){
+    // This method invert the values with the indexes
+    // For instance if we have the list [1, 3, 2] then the result will be [0, 2, 1]
+    public static List<Integer> valueAsIndex(List<Integer> inputList){
+        // Use an array to optimize writing
         int[] tabTemp = new int[inputList.size()];
         for (int i = 0; i < inputList.size(); i++) {
+            // -1 because the values goes from 1 to n will the indexes goes from 0 to n-1
+            // We write the index i at the position = value to optimize
             tabTemp[inputList.get(i)-1] = i;
         }
+        // Return a linked list to optimize remove() methode
         List<Integer> retour = new LinkedList<>();
         for (Integer I: tabTemp) {
             retour.add(I);
