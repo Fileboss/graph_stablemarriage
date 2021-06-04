@@ -65,80 +65,80 @@ public class stableMarriageApplication {
 
         // The list of Entities that are not assigned to any other Entities
         // or that are not assigned to their full capacity
-        List<Entity> notAssignedMatters;
+        List<Entity> notAssignedChoosers;
 
         // The list of Entities that can't be assigned
-        List<Entity> impossibleToAssignMatters = new ArrayList<>();
+        List<Entity> impossibleToAssignChoosers = new ArrayList<>();
 
         // The list of Entities that do the biding
-        List<Entity> matters;
+        List<Entity> Choosers;
 
         // The list of Entities that receive the biding and choose whom the keep
-        List<Entity> matteds;
+        List<Entity> chosens;
 
         // Assign the correct list depending on which Entity starts
         if (startWithLines) {
             // The Entities on the lines start
-            matters =  new LinkedList<>(Arrays.asList(linesEntities));
-            matteds = new LinkedList<>(Arrays.asList(columnsEntities));
-            notAssignedMatters =matters;
+            Choosers =  new LinkedList<>(Arrays.asList(linesEntities));
+            chosens = new LinkedList<>(Arrays.asList(columnsEntities));
+            notAssignedChoosers =Choosers;
         } else {
             // The Entities on the columns start
-            matters = new LinkedList<>(Arrays.asList(columnsEntities));
-            matteds = new LinkedList<>(Arrays.asList(linesEntities));
-            notAssignedMatters =matters;
+            Choosers = new LinkedList<>(Arrays.asList(columnsEntities));
+            chosens = new LinkedList<>(Arrays.asList(linesEntities));
+            notAssignedChoosers =Choosers;
         }
 
 
         // Number of rounds needed to reach a stable marriage
         int cptTour = 0;
 
-        // While the matters still have entities in their preference list
+        // While the Choosers still have entities in their preference list
         // or can still be assigned a number of time
         // then we do one more round
-        while ( ! notAssignedMatters.isEmpty()) {
+        while ( ! notAssignedChoosers.isEmpty()) {
             // Biding
 
-            // the list of matters that reached full capacity
+            // the list of Choosers that reached full capacity
             // or don't have anymore Entity in their preference list
             List<Entity> toRemove = new LinkedList<>();
 
             // We loop over each Entity that can still be assigned
-            for (Entity matter : notAssignedMatters) {
-                // matter.popPrefered() -> return the next most prefered Entity
-                // .addToWaitingList(matter) -> add to the waiting list of this Entity the matter
-                // For instance if matter is a Students then
-                //      matter.popPrefered() return the next prefered school
-                //      and .addToWaitingLIst(matter) add the studens to the waiting list of the school
-                matter.popPrefered().addToWaitingList(matter);
+            for (Entity chooser : notAssignedChoosers) {
+                // chooser.popPrefered() -> return the next most prefered Entity
+                // .addToWaitingList(chooser) -> add to the waiting list of this Entity the chooser
+                // For instance if chooser is a Students then
+                //      chooser.popPrefered() return the next prefered school
+                //      and .addToWaitingLIst(chooser) add the studens to the waiting list of the school
+                chooser.popPrefered().addToWaitingList(chooser);
 
-                // The matter can be assigned at most to capacity number of Entities
+                // The chooser can be assigned at most to capacity number of Entities
                 // Therefore we decrease the capacity
-                matter.decreaseCapacity();
+                chooser.decreaseCapacity();
 
-                // If a matter is assigned to its max capacity
+                // If a chooser is assigned to its max capacity
                 // or doesn't have anymore Entity it can be assigned to
-                if (matter.getCapacity() == 0 || !matter.isAssignable()) {
-                    toRemove.add(matter);
+                if (chooser.getCapacity() == 0 || !chooser.isAssignable()) {
+                    toRemove.add(chooser);
                 }
             }
-            notAssignedMatters.removeAll(toRemove);
+            notAssignedChoosers.removeAll(toRemove);
 
-            // After assigning each matter with the matted we need to remove
-            // the least prefered matter from the matted until it does not exceed
-            // the capacity of the matted
-            for (Entity matted : matteds) {
-                while(matted.getWaitingList().size() > matted.getCapacity()) {
-                    Entity matter = matted.popWorseFromWaitingList();
+            // After assigning each chooser with each chosen we need to remove
+            // the least preferred chooser from each chosen until it does not exceed
+            // the capacity of the chosens
+            for (Entity chosen : chosens) {
+                while(chosen.getWaitingList().size() > chosen.getCapacity()) {
+                    Entity chooser = chosen.popWorseFromWaitingList();
 
-                    // Because we removed a matter from the waiting list of a matted
-                    // we need to increase the number of time it can still be matted
-                    matter.increaseCapacity();
+                    // Because we removed a chooser from the waiting list of a chosen
+                    // we need to increase the number of time it can still be chosen
+                    chooser.increaseCapacity();
 
-                    // matter can still be assigned and is not in the notAssignedMatters list
-                    if (!notAssignedMatters.contains(matter)) {
-                        if (matter.isAssignable()) {
-                            notAssignedMatters.add(matter);
+                    // chooser can still be assigned and is not in the notAssignedChoosers list
+                    if (!notAssignedChoosers.contains(chooser)) {
+                        if (chooser.isAssignable()) {
+                            notAssignedChoosers.add(chooser);
                         }
                     }
                 }
@@ -148,10 +148,10 @@ public class stableMarriageApplication {
 
         // Show results
         System.out.println("<><><><><><><><><><><><><><><><><>\n\nNB TOURS : "+cptTour+"\n<><><><><><><><><><><><><><><><><>");
-        for (Entity matted : matteds) {
-            System.out.println(matted.toStringWaitingList());
+        for (Entity chooser : chosens) {
+            System.out.println(chooser.toStringWaitingList());
         }
-        //System.out.println("<><><><><><><><><><><><><><><><><>\nASSIGNATION INCOMPLETE : "+impossibleToAssignMatters);
+        //System.out.println("<><><><><><><><><><><><><><><><><>\nASSIGNATION INCOMPLETE : "+impossibleToAssignChoosers);
 
     }
 
